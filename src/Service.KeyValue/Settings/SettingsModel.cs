@@ -13,5 +13,8 @@ namespace Service.KeyValue.Settings
 
         [YamlProperty("KeyValue.ElkLogs")]
         public LogElkSettings ElkLogs { get; set; }
+
+        [YamlProperty("KeyValue.PostgresConnectionString")]
+        public string PostgresConnectionString { get; set; }
     }
 }

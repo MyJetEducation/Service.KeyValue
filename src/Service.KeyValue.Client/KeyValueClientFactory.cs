@@ -4,13 +4,13 @@ using Service.KeyValue.Grpc;
 
 namespace Service.KeyValue.Client
 {
-    [UsedImplicitly]
-    public class KeyValueClientFactory: MyGrpcClientFactory
-    {
-        public KeyValueClientFactory(string grpcServiceUrl) : base(grpcServiceUrl)
-        {
-        }
+	[UsedImplicitly]
+	public class KeyValueClientFactory : MyGrpcClientFactory
+	{
+		public KeyValueClientFactory(string grpcServiceUrl) : base(grpcServiceUrl)
+		{
+		}
 
-        public IHelloService GetHelloService() => CreateGrpcService<IHelloService>();
-    }
+		public IKeyValueRepository GetKeyValueRepository() => CreateGrpcService<IKeyValueRepository>();
+	}
 }
