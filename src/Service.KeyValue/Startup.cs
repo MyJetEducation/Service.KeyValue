@@ -23,7 +23,7 @@ namespace Service.KeyValue
 		{
 			services.BindCodeFirstGrpc();
 			services.AddHostedService<ApplicationLifetimeManager>();
-			services.AddMyTelemetry("SP-", Program.Settings.ZipkinUrl);
+			services.AddMyTelemetry("ED-", Program.Settings.ZipkinUrl);
 			services.AddDatabase(DatabaseContext.Schema, Program.Settings.PostgresConnectionString, options => new DatabaseContext(options));
 		}
 
