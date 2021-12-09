@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyJetWallet.Sdk.Postgres;
 using MyJetWallet.Sdk.Service;
-using Service.KeyValue.Postgres.Models;
+using Service.KeyValue.Domain.Models;
 
 namespace Service.KeyValue.Postgres
 {

@@ -11,6 +11,6 @@ namespace Service.KeyValue.Client
 		{
 		}
 
-		public IKeyValueRepository GetKeyValueRepository() => CreateGrpcService<IKeyValueRepository>();
+		public IKeyValueService GetKeyValueRepository() => CreateGrpcService<IKeyValueService>();
 	}
 }

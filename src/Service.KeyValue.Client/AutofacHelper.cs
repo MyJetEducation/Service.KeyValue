@@ -11,7 +11,7 @@ namespace Service.KeyValue.Client
 		{
 			var factory = new KeyValueClientFactory(grpcServiceUrl);
 
-			builder.RegisterInstance(factory.GetKeyValueRepository()).As<IKeyValueRepository>().SingleInstance();
+			builder.RegisterInstance(factory.GetKeyValueRepository()).As<IKeyValueService>().SingleInstance();
 		}
 	}
 }

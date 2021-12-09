@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Service.KeyValue.Domain.Models;
-using Service.KeyValue.Grpc;
-using Service.KeyValue.Grpc.Models;
 using Service.KeyValue.Postgres;
-using Service.KeyValue.Postgres.Models;
 
-namespace Service.KeyValue.Services
+namespace Service.KeyValue.Domain
 {
 	public class KeyValueRepository : IKeyValueRepository
 	{
@@ -23,35 +20,28 @@ namespace Service.KeyValue.Services
 			_dbContextOptionsBuilder = dbContextOptionsBuilder;
 		}
 
-		public async ValueTask<ItemsResponse> Get(ItemsGetRequest request)
+		public async ValueTask<KeyValueEntity[]> GetEntities(Guid? userId, string[] keys)
 		{
 			try
 			{
-				KeyValueModel[] items = await GetContext()
+				return await GetContext()
 					.KeyValues
-					.Where(entity => entity.UserId == request.UserId)
-					.Where(entity => request.Keys.Contains(entity.Key))
-					.Select(entity => new KeyValueModel
-					{
-						Key = entity.Key,
-						Value = entity.Value
-					})
+					.Where(entity => entity.UserId == userId)
+					.Where(entity => keys.Contains(entity.Key))
 					.ToArrayAsync();
-
-				return new ItemsResponse {Items = items};
 			}
 			catch (Exception exception)
 			{
 				_logger.LogError(exception, exception.Message);
-				return new ItemsResponse();
 			}
+
+			return await ValueTask.FromResult<KeyValueEntity[]>(null);
 		}
 
-		public async ValueTask<CommonResponse> Put(ItemsPutRequest request)
+		public async ValueTask<bool> SaveEntities(Guid? userId, KeyValueEntity[] entities)
 		{
-			string[] keys = request.Items.Select(model => model.Key).ToArray();
-			Guid? userId = request.UserId;
-			List<KeyValueModel> requestItemList = request.Items.ToList();
+			string[] keys = entities.Select(model => model.Key).ToArray();
+			List<KeyValueEntity> newEntitiesList = entities.ToList();
 
 			DatabaseContext context = GetContext();
 			DbSet<KeyValueEntity> dbSet = context.KeyValues;
@@ -65,41 +55,36 @@ namespace Service.KeyValue.Services
 
 				if (existingEntities.Any())
 				{
-					UpdateExistingEntities(existingEntities, requestItemList);
+					UpdateExistingEntities(existingEntities, newEntitiesList);
 					dbSet.UpdateRange(existingEntities);
 				}
 
-				if (requestItemList.Any())
-				{
-					KeyValueEntity[] entities = requestItemList
-						.Select(model => new KeyValueEntity(userId, model.Key, model.Value))
-						.ToArray();
-
-					await dbSet.AddRangeAsync(entities);
-				}
+				if (newEntitiesList.Any())
+					await dbSet.AddRangeAsync(newEntitiesList);
 
 				await context.SaveChangesAsync();
+
+				return true;
 			}
 			catch (Exception exception)
 			{
 				_logger.LogError(exception, exception.Message);
-				return CommonResponse.Fail;
 			}
 
-			return CommonResponse.Success;
+			return false;
 		}
 
-		private static void UpdateExistingEntities(IEnumerable<KeyValueEntity> existingEntities, List<KeyValueModel> requestItemList)
+		private static void UpdateExistingEntities(IEnumerable<KeyValueEntity> existingEntities, List<KeyValueEntity> newEntitiesList)
 		{
 			foreach (KeyValueEntity entity in existingEntities)
 			{
-				KeyValueModel requestItem = requestItemList.First(model => model.Key == entity.Key);
+				KeyValueEntity requestItem = newEntitiesList.First(model => model.Key == entity.Key);
 				entity.Value = requestItem.Value;
-				requestItemList.Remove(requestItem);
+				newEntitiesList.Remove(requestItem);
 			}
 		}
 
-		public async ValueTask<CommonResponse> Delete(ItemsDeleteRequest request)
+		public async ValueTask<bool> DeleteEntities(Guid? userId, string[] keys)
 		{
 			DatabaseContext context = GetContext();
 			DbSet<KeyValueEntity> dbSet = context.KeyValues;
@@ -107,24 +92,25 @@ namespace Service.KeyValue.Services
 			try
 			{
 				KeyValueEntity[] items = await dbSet
-					.Where(entity => entity.UserId == request.UserId)
-					.Where(entity => request.Keys.Contains(entity.Key))
+					.Where(entity => entity.UserId == userId)
+					.Where(entity => keys.Contains(entity.Key))
 					.ToArrayAsync();
 
 				if (!items.Any())
-					return CommonResponse.Fail;
+					return false;
 
 				dbSet.RemoveRange(items);
 
 				await context.SaveChangesAsync();
+
+				return true;
 			}
 			catch (Exception exception)
 			{
 				_logger.LogError(exception, exception.Message);
-				return CommonResponse.Fail;
 			}
 
-			return CommonResponse.Success;
+			return false;
 		}
 
 		private DatabaseContext GetContext() => DatabaseContext.Create(_dbContextOptionsBuilder);

@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Service.KeyValue.Domain.Models
+namespace Service.KeyValue.Grpc.Models
 {
 	[DataContract]
-	public class KeyValueModel
+	public class KeyValueGrpcModel
 	{
 		[DataMember(Order = 1)]
 		public string Key { get; set; }

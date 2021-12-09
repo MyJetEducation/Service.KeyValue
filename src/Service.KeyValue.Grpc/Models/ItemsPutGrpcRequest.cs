@@ -1,16 +1,15 @@
 using System;
 using System.Runtime.Serialization;
-using Service.KeyValue.Domain.Models;
 
 namespace Service.KeyValue.Grpc.Models
 {
 	[DataContract]
-	public class ItemsPutRequest
+	public class ItemsPutGrpcRequest
 	{
 		[DataMember(Order = 1)]
 		public Guid? UserId { get; set; }
 
 		[DataMember(Order = 2)]
-		public KeyValueModel[] Items { get; set; }
+		public KeyValueGrpcModel[] Items { get; set; }
 	}
 }

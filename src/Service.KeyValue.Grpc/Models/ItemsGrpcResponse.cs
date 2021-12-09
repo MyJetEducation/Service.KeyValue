@@ -1,12 +1,11 @@
 using System.Runtime.Serialization;
-using Service.KeyValue.Domain.Models;
 
 namespace Service.KeyValue.Grpc.Models
 {
 	[DataContract]
-	public class ItemsResponse
+	public class ItemsGrpcResponse
 	{
 		[DataMember(Order = 1)]
-		public KeyValueModel[] Items { get; set; }
+		public KeyValueGrpcModel[] Items { get; set; }
 	}
 }

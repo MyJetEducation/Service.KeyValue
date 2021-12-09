@@ -22,4 +22,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Service.KeyValue.Domain.Models\Service.KeyValue.Domain.Models.csproj" />
+  </ItemGroup>
+
 </Project>
