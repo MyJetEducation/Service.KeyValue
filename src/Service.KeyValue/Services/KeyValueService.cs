@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Service.Core.Grpc.Models;
 using Service.KeyValue.Domain.Models;
 using Service.KeyValue.Grpc;
 using Service.KeyValue.Grpc.Models;

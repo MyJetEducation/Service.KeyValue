@@ -28,11 +28,11 @@ namespace Service.KeyValue
 
 		public static void Main(string[] args)
 		{
-			Console.Title = "MyJetWallet Service.KeyValue";
+			Console.Title = "MyJetEducation Service.KeyValue";
 
 			Settings = SettingsReader.GetSettings<SettingsModel>(SettingsFileName);
 
-			using ILoggerFactory loggerFactory = LogConfigurator.ConfigureElk("MyJetWallet", Settings.SeqServiceUrl, Settings.ElkLogs);
+			using ILoggerFactory loggerFactory = LogConfigurator.ConfigureElk("MyJetEducation", Settings.SeqServiceUrl, Settings.ElkLogs);
 			ILogger<Program> logger = loggerFactory.CreateLogger<Program>();
 			LogFactory = loggerFactory;
 

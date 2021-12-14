@@ -1,5 +1,6 @@
 using System.ServiceModel;
 using System.Threading.Tasks;
+using Service.Core.Grpc.Models;
 using Service.KeyValue.Grpc.Models;
 
 namespace Service.KeyValue.Grpc
