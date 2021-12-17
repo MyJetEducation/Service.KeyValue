@@ -113,6 +113,26 @@ namespace Service.KeyValue.Domain
 			return false;
 		}
 
+		public async ValueTask<string[]> GetKeys(Guid? userId)
+		{
+			try
+			{
+				string[] items = await GetContext()
+					.KeyValues
+					.Where(entity => entity.UserId == userId)
+					.Select(entity => entity.Key)
+					.ToArrayAsync();
+
+				return items;
+			}
+			catch (Exception exception)
+			{
+				_logger.LogError(exception, exception.Message);
+			}
+
+			return await ValueTask.FromResult<string[]>(null);
+		}
+
 		private DatabaseContext GetContext() => DatabaseContext.Create(_dbContextOptionsBuilder);
 	}
 }

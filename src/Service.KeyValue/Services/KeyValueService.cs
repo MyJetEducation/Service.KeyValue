@@ -40,5 +40,12 @@ namespace Service.KeyValue.Services
 
 			return CommonGrpcResponse.Result(deleted);
 		}
+
+		public async ValueTask<KeysGrpcResponse> GetKeys(GetKeysGrpcRequest grpcRequest)
+		{
+			string[] keys = await _keyValueRepository.GetKeys(grpcRequest.UserId);
+
+			return new KeysGrpcResponse {Keys = keys};
+		}
 	}
 }

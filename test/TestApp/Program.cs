@@ -51,6 +51,10 @@ namespace TestApp
 			});
 			LogData(putResult2);
 
+			Console.WriteLine($"{Environment.NewLine}Get all user {userId2} keys");
+			KeysGrpcResponse keysGrpcResponse = await client.GetKeys(new GetKeysGrpcRequest {UserId = userId2});
+			LogData(keysGrpcResponse);
+
 			string[] keys1 = {"key1", "key2", "some_key"};
 			Console.WriteLine($"{Environment.NewLine}Get values for user {userId1}, keys {JsonSerializer.Serialize(keys1)}");
 			ItemsGrpcResponse getResult1 = await client.Get(new ItemsGetGrpcRequest {UserId = userId1, Keys = keys1});

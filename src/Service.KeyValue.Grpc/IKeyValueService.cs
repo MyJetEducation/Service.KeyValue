@@ -16,5 +16,8 @@ namespace Service.KeyValue.Grpc
 
 		[OperationContract]
 		ValueTask<CommonGrpcResponse> Delete(ItemsDeleteGrpcRequest grpcRequest);
+
+		[OperationContract]
+		ValueTask<KeysGrpcResponse> GetKeys(GetKeysGrpcRequest grpcRequest);
 	}
 }

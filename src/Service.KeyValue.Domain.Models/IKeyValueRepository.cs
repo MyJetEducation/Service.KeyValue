@@ -10,5 +10,7 @@ namespace Service.KeyValue.Domain.Models
 		ValueTask<bool> SaveEntities(Guid? userId, KeyValueEntity[] entities);
 		
 		ValueTask<bool> DeleteEntities(Guid? userId, string[] keys);
+
+		ValueTask<string[]> GetKeys(Guid? userId);
 	}
 }
