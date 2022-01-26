@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Service.KeyValue.Postgres.Models;
 
-namespace Service.KeyValue.Domain.Models
+namespace Service.KeyValue.Postgres.Services
 {
 	public interface IKeyValueRepository
 	{

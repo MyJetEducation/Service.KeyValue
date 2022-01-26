@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Service.KeyValue.Domain.Models
+﻿namespace Service.KeyValue.Postgres.Models
 {
 	public class KeyValueEntity
 	{

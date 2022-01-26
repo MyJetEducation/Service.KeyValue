@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Service.Core.Grpc.Models;
-using Service.KeyValue.Domain.Models;
+using Service.Core.Client.Models;
 using Service.KeyValue.Grpc;
 using Service.KeyValue.Grpc.Models;
 using Service.KeyValue.Mappers;
+using Service.KeyValue.Postgres.Models;
+using Service.KeyValue.Postgres.Services;
 
 namespace Service.KeyValue.Services
 {
