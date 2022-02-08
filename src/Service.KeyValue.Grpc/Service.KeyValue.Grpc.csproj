@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MyJetEducation.Service.Core.Client" Version="1.0.26" />
-    <PackageReference Include="SimpleTrading.Common" Version="1.0.32" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="4.9.0" />
+    <PackageReference PrivateAssets="All" Include="MyJetEducation.Service.Core.Client" Version="1.0.28" />
+    <PackageReference PrivateAssets="All" Include="SimpleTrading.Common" Version="1.0.32" />
+    <PackageReference PrivateAssets="All" Include="System.ServiceModel.Primitives" Version="4.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Service.KeyValue.Domain.Models\Service.KeyValue.Domain.Models.csproj" />
+    <ProjectReference PrivateAssets="All" Include="..\Service.KeyValue.Domain.Models\Service.KeyValue.Domain.Models.csproj" />
   </ItemGroup>
 
 </Project>
