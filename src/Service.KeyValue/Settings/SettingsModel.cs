@@ -3,18 +3,18 @@ using MyYamlParser;
 
 namespace Service.KeyValue.Settings
 {
-    public class SettingsModel
-    {
-        [YamlProperty("KeyValue.SeqServiceUrl")]
-        public string SeqServiceUrl { get; set; }
+	public class SettingsModel
+	{
+		[YamlProperty("KeyValueService.SeqServiceUrl")]
+		public string SeqServiceUrl { get; set; }
 
-        [YamlProperty("KeyValue.ZipkinUrl")]
-        public string ZipkinUrl { get; set; }
+		[YamlProperty("KeyValueService.ZipkinUrl")]
+		public string ZipkinUrl { get; set; }
 
-        [YamlProperty("KeyValue.ElkLogs")]
-        public LogElkSettings ElkLogs { get; set; }
+		[YamlProperty("KeyValueService.ElkLogs")]
+		public LogElkSettings ElkLogs { get; set; }
 
-        [YamlProperty("KeyValue.PostgresConnectionString")]
-        public string PostgresConnectionString { get; set; }
-    }
+		[YamlProperty("KeyValueService.PostgresConnectionString")]
+		public string PostgresConnectionString { get; set; }
+	}
 }
