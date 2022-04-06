@@ -49,21 +49,11 @@ namespace Service.KeyValue
 			Host.CreateDefaultBuilder(args)
 				.UseServiceProviderFactory(new AutofacServiceProviderFactory())
 				.ConfigureWebHostDefaults(webBuilder =>
-				{
-					string httpPort = Environment.GetEnvironmentVariable("HTTP_PORT") ?? "8080";
-					string grpcPort = Environment.GetEnvironmentVariable("GRPC_PORT") ?? "80";
-
-					Console.WriteLine($"HTTP PORT: {httpPort}");
-					Console.WriteLine($"GRPC PORT: {grpcPort}");
-
 					webBuilder.ConfigureKestrel(options =>
 					{
-						options.Listen(IPAddress.Any, int.Parse(httpPort), o => o.Protocols = HttpProtocols.Http1);
-						options.Listen(IPAddress.Any, int.Parse(grpcPort), o => o.Protocols = HttpProtocols.Http2);
-					});
-
-					webBuilder.UseStartup<Startup>();
-				})
+						options.Listen(IPAddress.Any, ProgramHelper.LoadPort("HTTP_PORT", "8080"), o => o.Protocols = HttpProtocols.Http1);
+						options.Listen(IPAddress.Any, ProgramHelper.LoadPort("GRPC_PORT", "80"), o => o.Protocols = HttpProtocols.Http2);
+					}).UseStartup<Startup>())
 				.ConfigureServices(services =>
 				{
 					services.AddSingleton(loggerFactory);
