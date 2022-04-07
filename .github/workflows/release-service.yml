@@ -48,7 +48,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         path: ./publish-api
         registry: ghcr.io
-        repository: ${{ secrets.ORG_NAME }}/service.keyvalue/service.keyvalue
+        repository: ${{ secrets.ORG_NAME }}/service.keyvalue
         tag_with_ref: true
         build_args: app_version=service.keyvalue:${{ steps.extract_branch.outputs.branch }},app_compilation_date=${{ steps.current-time.outputs.formattedTime }}
 
