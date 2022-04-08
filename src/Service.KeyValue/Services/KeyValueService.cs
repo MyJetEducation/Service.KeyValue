@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Service.Core.Client.Extensions;
 using Service.Core.Client.Models;
 using Service.KeyValue.Grpc;
 using Service.KeyValue.Grpc.Models;
@@ -47,6 +48,28 @@ namespace Service.KeyValue.Services
 			string[] keys = await _keyValueRepository.GetKeys(grpcRequest.UserId);
 
 			return new KeysGrpcResponse {Keys = keys};
+		}
+
+		public async ValueTask<CommonGrpcResponse> ClearUiProgress(ClearUiProgressGrpcRequest grpcRequest)
+		{
+			Guid? userId = grpcRequest.UserId;
+
+			string[] keys = (await _keyValueRepository.GetKeys(userId)) ?? Array.Empty<string>();
+
+			string[] menuKeys = keys.Where(s => s.StartsWith("progressMenu")).ToArray();
+			if (menuKeys.IsNullOrEmpty())
+				return CommonGrpcResponse.Success;
+
+			KeyValueEntity[] items = await _keyValueRepository.GetEntities(userId, menuKeys);
+			if (items.IsNullOrEmpty())
+				return CommonGrpcResponse.Success;
+
+			foreach (KeyValueEntity item in items)
+				item.Value = item.Value.Replace("\"valid\":true", "\"valid\":false");
+
+			bool result = await _keyValueRepository.SaveEntities(userId, items);
+
+			return CommonGrpcResponse.Result(result);
 		}
 	}
 }
