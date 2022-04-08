@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.Serialization;
 
 namespace Service.KeyValue.Grpc.Models
@@ -7,7 +6,7 @@ namespace Service.KeyValue.Grpc.Models
 	public class ItemsDeleteGrpcRequest
 	{
 		[DataMember(Order = 1)]
-		public Guid? UserId { get; set; }
+		public string UserId { get; set; }
 
 		[DataMember(Order = 2)]
 		public string[] Keys { get; set; }

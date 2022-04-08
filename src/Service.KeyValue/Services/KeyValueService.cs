@@ -29,7 +29,7 @@ namespace Service.KeyValue.Services
 
 		public async ValueTask<CommonGrpcResponse> Put(ItemsPutGrpcRequest grpcRequest)
 		{
-			Guid? userId = grpcRequest.UserId;
+			string userId = grpcRequest.UserId;
 
 			bool saved = await _keyValueRepository.SaveEntities(userId, grpcRequest.Items.Select(model => model.ToEntity(userId)).ToArray());
 
@@ -52,7 +52,7 @@ namespace Service.KeyValue.Services
 
 		public async ValueTask<CommonGrpcResponse> ClearUiProgress(ClearUiProgressGrpcRequest grpcRequest)
 		{
-			Guid? userId = grpcRequest.UserId;
+			string userId = grpcRequest.UserId;
 
 			string[] keys = (await _keyValueRepository.GetKeys(userId)) ?? Array.Empty<string>();
 

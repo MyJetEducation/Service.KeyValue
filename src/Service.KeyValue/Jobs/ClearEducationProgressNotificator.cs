@@ -26,7 +26,7 @@ namespace Service.KeyValue.Jobs
 		{
 			foreach (ClearEducationProgressServiceBusModel message in events)
 			{
-				Guid? userId = message.UserId;
+				string userId = message.UserId;
 
 				_logger.LogInformation("Clear full education progress for user: {userId}", userId);
 

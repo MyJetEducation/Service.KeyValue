@@ -4,12 +4,12 @@ namespace Service.KeyValue.Postgres.Services
 {
 	public interface IKeyValueRepository
 	{
-		ValueTask<KeyValueEntity[]> GetEntities(Guid? userId, string[] keys);
+		ValueTask<KeyValueEntity[]> GetEntities(string userId, string[] keys);
 
-		ValueTask<bool> SaveEntities(Guid? userId, KeyValueEntity[] entities);
+		ValueTask<bool> SaveEntities(string userId, KeyValueEntity[] entities);
 		
-		ValueTask<bool> DeleteEntities(Guid? userId, string[] keys);
+		ValueTask<bool> DeleteEntities(string userId, string[] keys);
 
-		ValueTask<string[]> GetKeys(Guid? userId);
+		ValueTask<string[]> GetKeys(string userId);
 	}
 }

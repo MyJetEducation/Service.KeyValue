@@ -15,7 +15,7 @@ namespace Service.KeyValue.Postgres.Services
 			_dbContextOptionsBuilder = dbContextOptionsBuilder;
 		}
 
-		public async ValueTask<KeyValueEntity[]> GetEntities(Guid? userId, string[] keys)
+		public async ValueTask<KeyValueEntity[]> GetEntities(string userId, string[] keys)
 		{
 			try
 			{
@@ -33,7 +33,7 @@ namespace Service.KeyValue.Postgres.Services
 			return await ValueTask.FromResult<KeyValueEntity[]>(null);
 		}
 
-		public async ValueTask<bool> SaveEntities(Guid? userId, KeyValueEntity[] entities)
+		public async ValueTask<bool> SaveEntities(string userId, KeyValueEntity[] entities)
 		{
 			string[] keys = entities.Select(model => model.Key).ToArray();
 			List<KeyValueEntity> newEntitiesList = entities.ToList();
@@ -79,7 +79,7 @@ namespace Service.KeyValue.Postgres.Services
 			}
 		}
 
-		public async ValueTask<bool> DeleteEntities(Guid? userId, string[] keys)
+		public async ValueTask<bool> DeleteEntities(string userId, string[] keys)
 		{
 			DatabaseContext context = GetContext();
 			DbSet<KeyValueEntity> dbSet = context.KeyValues;
@@ -108,7 +108,7 @@ namespace Service.KeyValue.Postgres.Services
 			return false;
 		}
 
-		public async ValueTask<string[]> GetKeys(Guid? userId)
+		public async ValueTask<string[]> GetKeys(string userId)
 		{
 			try
 			{
