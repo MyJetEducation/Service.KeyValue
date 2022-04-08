@@ -1,5 +1,4 @@
-﻿using System;
-using Service.KeyValue.Grpc.Models;
+﻿using Service.KeyValue.Grpc.Models;
 using Service.KeyValue.Postgres.Models;
 
 namespace Service.KeyValue.Mappers
@@ -12,7 +11,7 @@ namespace Service.KeyValue.Mappers
 			Value = entity.Value
 		};
 
-		public static KeyValueEntity ToEntity(this KeyValueGrpcModel grpcModel, Guid? userId) => new KeyValueEntity
+		public static KeyValueEntity ToEntity(this KeyValueGrpcModel grpcModel, string userId) => new KeyValueEntity
 		{
 			Id = $"{userId}-{grpcModel.Key}",
 			UserId = userId,

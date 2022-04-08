@@ -21,7 +21,7 @@ namespace TestApp
 			var factory = new KeyValueClientFactory("http://localhost:5001");
 			IKeyValueService client = factory.GetKeyValueRepository();
 
-			var userId1 = Guid.NewGuid();
+			var userId1 = Guid.NewGuid().ToString();
 
 			Console.WriteLine($"{Environment.NewLine}Put new values to user {userId1}");
 			CommonGrpcResponse putResult1 = await client.Put(new ItemsPutGrpcRequest
@@ -36,7 +36,7 @@ namespace TestApp
 			});
 			LogData(putResult1);
 
-			var userId2 = Guid.NewGuid();
+			var userId2 = Guid.NewGuid().ToString();
 
 			Console.WriteLine($"{Environment.NewLine}Put new values to user {userId2}");
 			CommonGrpcResponse putResult2 = await client.Put(new ItemsPutGrpcRequest
