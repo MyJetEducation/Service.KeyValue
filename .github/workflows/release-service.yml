@@ -55,16 +55,16 @@ jobs:
       run: ls ./publish-api
 
 
-    - name: Publish image
+    - name: Publish image azure
       uses: docker/build-push-action@v1
       with:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
         path: ./publish-api
-        registry: ghcr.io
-        repository: ${{ secrets.ORG_NAME }}/service.keyvalue
+        registry: ${{ secrets.REGISTRY_HOST }}
+        repository: ${{ secrets.REGISTRY_HOST }}/myjeteducation/${{ steps.string.outputs.lowercase }}
         tags: ${{ steps.branches.outputs.value }}
-        build_args: app_version=${{ steps.string.outputs.lowercase }}-master:${{ steps.branches.outputs.value }},app_compilation_date=${{ steps.current-time.outputs.formattedTime }}
+        build_args: app_version=${{ steps.string.outputs.lowercase }}:${{ steps.branches.outputs.value }},app_compilation_date=${{ steps.current-time.outputs.formattedTime }}
 
   update_version_master:
     needs: build
