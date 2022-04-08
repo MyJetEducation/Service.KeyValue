@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyJetWallet.Sdk.Service;
 using MySettingsReader;
+using Service.Core.Client.Constants;
 using Service.Core.Client.Helpers;
 using Service.KeyValue.Settings;
 
