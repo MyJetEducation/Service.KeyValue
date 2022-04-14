@@ -16,7 +16,7 @@ namespace Service.KeyValue.Modules
 			builder.RegisterType<KeyValueRepository>().AsImplementedInterfaces().SingleInstance();
 
 			MyServiceBusTcpClient serviceBusClient = builder.RegisterMyServiceBusTcpClient(Program.ReloadedSettings(e => e.ServiceBusReader), Program.LogFactory);
-			builder.RegisterMyServiceBusSubscriberBatch<ClearEducationProgressServiceBusModel>(serviceBusClient, ClearEducationProgressServiceBusModel.TopicName, QueueName, TopicQueueType.Permanent);
+			builder.RegisterMyServiceBusSubscriberBatch<ClearEducationUiProgressServiceBusModel>(serviceBusClient, ClearEducationUiProgressServiceBusModel.TopicName, QueueName, TopicQueueType.Permanent);
 		}
 	}
 }
