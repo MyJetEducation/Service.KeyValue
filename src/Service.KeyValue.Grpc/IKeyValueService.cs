@@ -19,8 +19,5 @@ namespace Service.KeyValue.Grpc
 
 		[OperationContract]
 		ValueTask<KeysGrpcResponse> GetKeys(GetKeysGrpcRequest grpcRequest);
-
-		[OperationContract]
-		ValueTask<CommonGrpcResponse> ClearUiProgress(ClearUiProgressGrpcRequest grpcRequest);
 	}
 }
